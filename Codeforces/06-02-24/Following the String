@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+string constructString(int n, vector<int>& trace) {
+    string s(n, ' '); // Initialize a string of size n
+    vector<int> count(26, 0); // Initialize a count array for each character
+
+    for (int i = 0; i < n; ++i) {
+        // Find the character to assign to the current position based on the trace
+        for (int j = 0; j < 26; ++j) {
+            if (count[j] == trace[i]) {
+                s[i] = 'a' + j;
+                break;
+            }
+        }
+        // Update the count of the assigned character
+        count[s[i] - 'a']++;
+    }
+
+    return s;
+}
+
+int main() {
+    int t;
+    cin >> t; // Read the number of test cases
+
+    while (t--) {
+        int n;
+        cin >> n; // Read the length of the lost string
+        vector<int> trace(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> trace[i]; // Read the trace array
+        }
+        // Construct the string and print it
+        cout << constructString(n, trace) << endl;
+    }
+
+    return 0;
+}
